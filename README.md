@@ -241,13 +241,19 @@ If you do happen to lock yourself out from this, open a new window and run `wsl 
 
 It's possible KVM may not work still because it can't access `/dev/kvm` despite being added to the `kvm` group, also due to weird WSL things. I just do `sudo chmod 777 /dev/kvm`. It doesn't matter if it's 777 because all files are created with a 000 umask on NTFS drives anyways since metadata isn't included by default and is still experimental. WSL is not for security.
 
+If you want to automatically set `/dev/kvm` to 777, you can set it as a WSL2 startup command in your `wsl.conf`:
+
+```
+command = chmod 777 /dev/kvm
+```
+
 From this point on, you will ***ALWAYS*** need to do stuff in the actual Linux ext4 root. `/home` is apart of `/` so you should just do your stuff in `~/`. DO NOT do stuff in NTFS drives (`/mnt/c` for example) as I mentioned above it's extremely slow. This is the closest to a real Linux setup.
 
 You can now follow https://grapheneos.org/build like you would on normal Linux exactly as-is. Building emulator yields near-bare-metal times (2 hours 46 minutes on WSL Arch Linux, 2 hours 6 minutes on bare-metal Arch Linux).
 
 ### AOSP emulator segmentation fault and poor performance
 
-You need to disable the GPU (yeah, weird) to get high performance 60 FPS in the Android Virtual Device's config.
+You (might) need to disable the GPU (yeah, weird) to get high performance 60 FPS in the Android Virtual Device's config.
 
 1. Assuming you built emulator successfully at this point navigate to the output, example: `/home/herbcookie/grapheneos-12.1/out/target/product/emulator_x86_64`
 
@@ -256,3 +262,5 @@ You need to disable the GPU (yeah, weird) to get high performance 60 FPS in the 
 3. Set `hw.gpu.enabled` from `yes` to `no`
 
 Then start emulator again. You should have high performance, extremely fluid, 60 FPS. It might also fix a possible segfault.
+
+It's possible this isn't necessary and I suggest just trying to run emulator as-is before deciding if you need it. On my old machine (i7-8700k + NVIDIA GTX 1070) this was mandatory, but on my new machine (Ryzen 9 3900XT, NVIDIA RTX 3080) this was not needed.
