@@ -41,7 +41,7 @@ This guide only mentions Arch Linux as it's the only good alternative to buildin
 - lib32-glibc
 - signify
 
-### Arch deps for WSLg and emulator:
+### Arch deps for WSLg and AOSP emulator:
 
 - vulkan-swrast
 - vulkan-icd-loader
@@ -50,6 +50,7 @@ This guide only mentions Arch Linux as it's the only good alternative to buildin
 - xorg-server-common
 - sdl2
 - sdl
+- libpulse
 
 <hr>
 
