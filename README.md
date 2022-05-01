@@ -241,9 +241,10 @@ If you do happen to lock yourself out from this, open a new window and run `wsl 
 
 It's possible KVM may not work still because it can't access `/dev/kvm` despite being added to the `kvm` group, also due to weird WSL things. I just do `sudo chmod 777 /dev/kvm`. It doesn't matter if it's 777 because all files are created with a 000 umask on NTFS drives anyways since metadata isn't included by default and is still experimental. WSL is not for security.
 
-If you want to automatically set `/dev/kvm` to 777, you can set it as a WSL2 startup command in your `wsl.conf`:
+If you want to automatically set `/dev/kvm` to 777, you can set it as a WSL2 startup command in `/etc/wsl.conf`:
 
 ```
+[boot]
 command = chmod 777 /dev/kvm
 ```
 
